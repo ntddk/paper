@@ -57,6 +57,7 @@
   {\unvbox\@jabstractbox}
   \vskip2em
 % 英文タイトルのスタイル
+\ifENG
   {\Large \bf \@etitle \par}
   \vskip 1.5em
   {\large \begin{tabular}[t]{c}\@eauthor \end{tabular}\par}
@@ -65,41 +66,58 @@
   \vskip 1.5em
   {\unvbox\@eabstractbox}
   \par \vskip 1.5em
+\fi
   \end{center}
 }
 
-% タイトル
+% 和文タイトル
 \def\jtitle#1{\gdef\@jtitle{#1}}
 \def\@jtitle#{\mkt\@warning\jtitle}
+
+% 英文タイトル
+\ifENG
 \def\etitle#1{\gdef\@etitle{#1}}
 \def\@etitle{\mkt@warning\etitle}
+\fi
 
-% 著者
+% 和文著者
 \long\def\jauthor#1{\long\gdef\@jauthor{#1}}
 \def\@jauthor{\mkt@warning\jauthor}
+
+% 英文著者
+\ifENG
 \long\def\eauthor#1{\long\gdef\@eauthor{#1}}
 \def\@eauthor{\mkt@warning\eauthor}
+\fi
 
-% 連絡先
+% 和文連絡先
 \long\def\jcontact#1{\long\gdef\@jcontact{#1}}
 \def\@jcontact{\mkt@warning\jcontact}
+
+% 英文連絡先
+\ifENG
 \long\def\econtact#1{\long\gdef\@econtact{#1}}
 \def\@econtact{\mkt@warning\econtact}
+\fi
 
-% アブスト
+% 和文アブスト
 \def\jabstractname{あらまし}
-\def\eabstractname{Abstract}
 \newbox\@jabstractbox \global\setbox\@jabstractbox\box\voidb@x
-\newbox\@eabstractbox \global\setbox\@eabstractbox\box\voidb@x
 \def\jabstract{%
    \global\setbox\@jabstractbox\vbox\bgroup
       \hsize\textwidth \@parboxrestore
       {\bfseries \jabstractname}  \parindent=1zw\relax}
 \def\endjabstract{\egroup}
+
+% 英文アブスト
+\ifENG
+\def\eabstractname{Abstract}
+\newbox\@eabstractbox \global\setbox\@eabstractbox\box\voidb@x
 \def\eabstract{%
    \global\setbox\@eabstractbox\vbox\bgroup
       \hsize\textwidth \@parboxrestore
       {\bfseries \eabstractname}  \parindent=1zw\relax}
 \def\endeabstract{\egroup}
+\fi
 
 % EOF

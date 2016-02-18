@@ -1,10 +1,10 @@
 \documentclass[a4j,8pt,fleqn]{jarticle}
 \usepackage[dvipdfm]{graphicx,color}
 \usepackage{graphicx,layout,url,framed,algorithm,algorithmic,comment,here,listings,jlisting,here,ascmac,amsmath,amssymb}
-\usepackage{style}
+\usepackage{engset,style}
 
 % 余白の設定
-%\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
+% \usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
 
 % ソースコードのシンタックスハイライト
 \lstset{language=c,
@@ -63,17 +63,29 @@
 
 \begin{document}
 
-% タイトル
+% 和文タイトル
 \jtitle{タイトル}
+
+% 英文タイトル
+\ifENG
 \etitle{Title}
+\fi
 
-% 著者
+% 和文著者
 \jauthor{名前\dag}
-\eauthor{Name\dag}
 
-% 連絡先
+% 英文著者
+\ifENG
+\eauthor{Name\dag}
+\fi
+
+% 和文連絡先
 \jcontact{\dag 大学 学部\\000-0000 住所\\\texttt{mail@mail.com}\\[1ex]}
+
+% 英文連絡先
+\ifENG
 \econtact{\dag Faculty, University\\Address\\\texttt{mail@mail.com}\\[1ex]}
+\fi
 
 % 和文アブスト
 \begin{jabstract}
@@ -81,9 +93,11 @@
 \end{jabstract}
 
 % 英文アブスト
+\ifENG
 \begin{eabstract}
 Abstract
 \end{eabstract}
+\fi
 
 \maketitle
 \thispagestyle{empty}
