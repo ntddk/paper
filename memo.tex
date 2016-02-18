@@ -1,0 +1,202 @@
+\documentclass[a4j,8pt,fleqn]{jarticle}
+\usepackage[dvipdfm]{graphicx,color}
+\usepackage{graphicx,layout,url,framed,algorithm,algorithmic,comment,here,listings,jlisting,here,ascmac,amsmath,amssymb}
+\usepackage{style}
+
+% 余白の設定
+%\usepackage[top=30truemm,bottom=30truemm,left=25truemm,right=25truemm]{geometry}
+
+% ソースコードのシンタックスハイライト
+\lstset{language=c,
+  breaklines=true,
+  basicstyle=\ttfamily\small,
+  commentstyle={\small\itshape \color[cmyk]{1,0.4,1,0}},
+  classoffset=1,
+  keywordstyle={\small\bfseries \color[cmyk]{0,1,0,0}},
+  stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+  frame=tblr,
+  framesep=5pt,
+  showstringspaces=false,
+  numbers=left,
+  stepnumber=1,
+  numberstyle=\tiny,
+  tabsize=2,
+  xrightmargin=2zw,
+  xleftmargin=2zw,
+  numbersep=2zw,
+}
+
+\makeatletter
+
+% ソースコードの改行
+\def\lst@lettertrue{\let\lst@ifletter\iffalse}
+
+% 参考文献リストのサイズ
+\renewenvironment{thebibliography}[1]
+{\section*{\refname\@mkboth{\refname}{\refname}}%
+  \list{\@biblabel{\@arabic\c@enumiv}}%
+       {\settowidth\labelwidth{\@biblabel{#1}}%
+        \leftmargin\labelwidth
+        \advance\leftmargin\labelsep
+ \setlength\itemsep{-0.5zh}%
+ \setlength\baselineskip{0.5pt}%
+        \@openbib@code
+        \usecounter{enumiv}%
+        \let\p@enumiv\@empty
+        \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+  \sloppy
+  \clubpenalty4000
+  \@clubpenalty\clubpenalty
+  \widowpenalty4000%
+  \sfcode`\.\@m}
+ {\def\@noitemerr
+   {\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist}
+
+\makeatother
+
+% アルゴリズム表示
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+% タイトル
+\jtitle{タイトル}
+\etitle{Title}
+
+% 著者
+\jauthor{名前\dag}
+\eauthor{Name\dag}
+
+% 連絡先
+\jcontact{\dag 大学 学部\\000-0000 住所\\\texttt{mail@mail.com}\\[1ex]}
+\econtact{\dag Faculty, University\\Address\\\texttt{mail@mail.com}\\[1ex]}
+
+% 和文アブスト
+\begin{jabstract}
+これは忘れた頃にソースコードを見てLaTeXの書き方を思い出すためのメモ書きです．
+\end{jabstract}
+
+% 英文アブスト
+\begin{eabstract}
+Abstract
+\end{eabstract}
+
+\maketitle
+\thispagestyle{empty}
+
+\section{基本書式}
+こんにちは．引用\cite{sample}してみた．\par
+改行もしてみた\footnote{なお注釈はこのように書ける}．
+
+\subsection{箇条書き}
+これは普通の箇条書き．
+\begin{itemize}
+\item あああ
+\end{itemize}
+\par
+これは説明付き箇条書き．
+\begin{description}
+ \item[仮説A]あああ
+ \item[仮説B]いいい
+\end{description}
+\par
+これは番号付き箇条書き．
+\begin{enumerate}
+  \item あああ
+  \item いいい
+\end{enumerate}
+
+\subsection{図}
+図\ref{fig:one}を挿入してみた．
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=20mm]{sample.png}
+    \small
+    \caption{図のサンプル}
+    \label{fig:one}
+  \end{center}
+\end{figure}
+\par
+図を入れるには画像を変換すること．
+\begin{framed}
+  \begin{small}
+    \begin{verbatim}
+ebb sample.png
+    \end{verbatim}
+  \end{small}
+\end{framed}
+\par
+あと，次のように設定するとその場に図表やソースコードを描画できる．
+\begin{framed}
+  \begin{small}
+    \begin{verbatim}
+\usepackage{here}
+...
+\begin{figure}[H]
+    \end{verbatim}
+  \end{small}
+\end{framed}
+
+\subsection{表}
+表はこんな感じ．
+\begin{table}[htb]
+  \begin{tabular}{|l|c|c|}\hline
+    あああ & いいい & ううう \\\hline
+    えええ & おおお & かかか\\\hline
+  \end{tabular}
+\end{table}
+
+\subsection{数式}
+試しにFitzHugh-Nagumo modelの式を書いておく．ここで\\
+\begin{equation}
+  \dfrac {dv} {dt} = \dfrac {1}{ε} (v - \dfrac {v^3}{3} -w) + I_{ext}\\
+\end{equation}
+\begin{equation}
+  \dfrac {dw} {dt} = ε(v - β - γw) 
+\end{equation}
+ただし$v$は細胞の膜電位，$w$は細胞の不活性化の程度を表す抽象的な変数，$I_{ext}$は細胞外から届く電流を表す．
+
+\subsection{アルゴリズム}
+アルゴリズム\ref{alg:one}は次のように記述する．
+\begin{algorithm}[H]
+  \begin{small}
+    \caption{アルゴリズム}
+    \label{alg:one}
+    \begin{algorithmic}
+\REQUIRE 入力
+\ENSURE 出力
+\STATE 文
+\WHILE {true}
+\STATE 文
+\ENDWHILE
+\IF {条件}
+\STATE {文}
+\ENDIF
+    \end{algorithmic}
+  \end{small}
+\end{algorithm}
+
+\subsection{ソースコード}
+ソースコードは次のように記述する．
+\begin{lstlisting}[caption=hello.c][H]
+// コメント
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+  return 0;
+}
+\end{lstlisting}
+なんかlstlistingの設定が少し面倒だった気がするけど覚えていないし都度ググッて．
+
+\begin{thebibliography}{20}
+%\bibitem{a}
+\bibitem{sample}sample\\\texttt{https://localhost/}
+\end{thebibliography}
+\end{document}
+
+% EOF

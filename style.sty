@@ -1,0 +1,105 @@
+% ページ番号なし
+\pagestyle{empty}
+
+% 余白
+%\paperwidth  210mm
+%\paperheight  297mm
+\textwidth       160.0mm
+\textheight      237.0mm
+\oddsidemargin    0mm
+\evensidemargin   0mm
+\topmargin        0mm
+\headheight       5.0mm
+\headsep          0.0mm
+\footskip         0.0mm
+\columnsep        6.0mm
+\parindent 1zw\relax
+
+% 行分け
+\twocolumn
+\raggedbottom
+%\onecolumn
+
+% リスト
+\def\@listi{%
+  \leftmargin = 0.7cm
+  \labelsep = 0.2cm
+  \itemsep = 0.1cm}
+\let\@listI\@listi
+
+% 表題
+\def\maketitle{
+  \par
+  \begingroup
+  \def\thefootnote{\fnsymbol{footnote}}
+  \def\@makefnmark{\hbox to 0pt{$^{\@thefnmark}$\hss}}
+  \twocolumn[\@maketitle]\@thanks
+  \endgroup
+  \setcounter{footnote}{0}
+  \let\maketitle\relax
+  \let\@maketitle\relax
+  \gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\thanks\relax
+}
+
+% 最初のページのスタイル
+\def\@maketitle{
+  \newpage\null\vskip 1em%
+  \begin{center}%
+    \let\footnote\thanks
+
+% 和文タイトルのスタイル
+  {\Large \bf \@jtitle \par}
+  \vskip 1.5em
+  {\large \begin{tabular}[t]{c} \@jauthor \end{tabular}\par}
+  \vskip 1.5em
+  \begin{tabular}[t]{c} \@jcontact \end{tabular}\par
+  \vskip 1.5em%
+  {\unvbox\@jabstractbox}
+  \vskip2em
+% 英文タイトルのスタイル
+  {\Large \bf \@etitle \par}
+  \vskip 1.5em
+  {\large \begin{tabular}[t]{c}\@eauthor \end{tabular}\par}
+  \vskip 1.5em
+  {\small \begin{tabular}[t]{c}\@econtact \end{tabular}\par}
+  \vskip 1.5em
+  {\unvbox\@eabstractbox}
+  \par \vskip 1.5em
+  \end{center}
+}
+
+% タイトル
+\def\jtitle#1{\gdef\@jtitle{#1}}
+\def\@jtitle#{\mkt\@warning\jtitle}
+\def\etitle#1{\gdef\@etitle{#1}}
+\def\@etitle{\mkt@warning\etitle}
+
+% 著者
+\long\def\jauthor#1{\long\gdef\@jauthor{#1}}
+\def\@jauthor{\mkt@warning\jauthor}
+\long\def\eauthor#1{\long\gdef\@eauthor{#1}}
+\def\@eauthor{\mkt@warning\eauthor}
+
+% 連絡先
+\long\def\jcontact#1{\long\gdef\@jcontact{#1}}
+\def\@jcontact{\mkt@warning\jcontact}
+\long\def\econtact#1{\long\gdef\@econtact{#1}}
+\def\@econtact{\mkt@warning\econtact}
+
+% アブスト
+\def\jabstractname{あらまし}
+\def\eabstractname{Abstract}
+\newbox\@jabstractbox \global\setbox\@jabstractbox\box\voidb@x
+\newbox\@eabstractbox \global\setbox\@eabstractbox\box\voidb@x
+\def\jabstract{%
+   \global\setbox\@jabstractbox\vbox\bgroup
+      \hsize\textwidth \@parboxrestore
+      {\bfseries \jabstractname}  \parindent=1zw\relax}
+\def\endjabstract{\egroup}
+\def\eabstract{%
+   \global\setbox\@eabstractbox\vbox\bgroup
+      \hsize\textwidth \@parboxrestore
+      {\bfseries \eabstractname}  \parindent=1zw\relax}
+\def\endeabstract{\egroup}
+
+% EOF
